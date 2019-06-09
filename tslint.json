@@ -13,7 +13,12 @@
     "indent": [true, "spaces", 2],
     "interface-name": false,
     "ordered-imports": false,
+    "no-console": false,
     "object-literal-sort-keys": false,
+    "max-classes-per-file": [
+      true,
+      5
+    ],
     "no-consecutive-blank-lines": false
   }
 }
