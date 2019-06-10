@@ -6,7 +6,6 @@
       :y="i"
       :row="row"
       :state="state"
-      :turn="board.turn"
       @put="onPutEvent"
     />
   </div>

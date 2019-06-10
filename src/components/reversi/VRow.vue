@@ -28,8 +28,6 @@ export default class VRow extends Vue {
   public row?: Row;
   @Prop({ required: true })
   public y?: number;
-  @Prop({ required: true })
-  public turn?: CellState;
 
   @Emit()
   public put(i: number, j: number) {

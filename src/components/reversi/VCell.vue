@@ -18,7 +18,6 @@ export default class VCell extends Vue {
   public x?: number;
   @Prop({ required: true })
   public state?: CellState;
-  private turn?: CellState;
 
   @Emit()
   public put(i: number, j: number) {
@@ -26,16 +25,15 @@ export default class VCell extends Vue {
   }
 
   public get isWhite(): boolean {
-    return this.state!.toString() === '1';
+    return this.state! === CellState.White;
   }
 
   public get isBlack(): boolean {
-    return this.state!.toString() === '2';
+    return this.state! === CellState.Black;
   }
 
   public onClick() {
     this.put(this.y!, this.x!);
-    this.state = this.turn!;
   }
 }
 </script>
