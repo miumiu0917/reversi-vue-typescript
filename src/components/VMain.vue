@@ -13,6 +13,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class VStart extends Vue {
+export default class VMain extends Vue {
 }
 </script>
