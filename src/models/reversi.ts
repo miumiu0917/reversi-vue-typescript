@@ -1,19 +1,23 @@
 export class Board {
 
   public rows: Row[];
-  public state: CellState;
+  public turn: CellState;
 
   constructor() {
     this.rows = [...Array(8).keys()].map((i) => new Row(i));
-    this.state = CellState.Black;
+    this.turn = CellState.Black;
+    this.rows[3].cells[3].state = CellState.Black;
+    this.rows[4].cells[4].state = CellState.Black;
+    this.rows[3].cells[4].state = CellState.White;
+    this.rows[4].cells[3].state = CellState.White;
   }
 
   public put(i: number, j: number) {
-    this.rows[i].cells[j].state = this.state;
-    if (this.state === CellState.Black) {
-      this.state = CellState.White;
+    this.rows[i].cells[j].state = this.turn;
+    if (this.turn === CellState.Black) {
+      this.turn = CellState.White;
     } else {
-      this.state = CellState.Black;
+      this.turn = CellState.Black;
     }
   }
 }

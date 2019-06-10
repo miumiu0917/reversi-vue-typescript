@@ -13,12 +13,12 @@ import { CellState } from '../../models/reversi';
 export default class VCell extends Vue {
 
   @Prop({ required: true })
-  public row?: number;
+  public y?: number;
   @Prop({ required: true })
-  public column?: number;
+  public x?: number;
   @Prop({ required: true })
   public state?: CellState;
-  private filled: string = '';
+  private turn?: CellState;
 
   @Emit()
   public put(i: number, j: number) {
@@ -26,18 +26,16 @@ export default class VCell extends Vue {
   }
 
   public get isWhite(): boolean {
-    console.log('computed is called');
-    return this.filled! === '1';
+    return this.state!.toString() === '1';
   }
 
   public get isBlack(): boolean {
-    return this.filled! === '2';
+    return this.state!.toString() === '2';
   }
 
   public onClick() {
-    this.put(this.row!, this.column!);
-    this.filled = this.state!.toString();
-    console.log(this);
+    this.put(this.y!, this.x!);
+    this.state = this.turn!;
   }
 }
 </script>

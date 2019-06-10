@@ -1,6 +1,14 @@
 <template>
   <v-layout>
-    <VCell v-for="i in 8" :key="i" :column="i" :row="row" :state="state" @put="onPutEvent"/>
+    <VCell
+      v-for="(cell, i) in row.cells"
+      :key="i"
+      :x="i"
+      :y="y"
+      :state="row.cells[i].state"
+      :turn="turn"
+      @put="onPutEvent"
+    />
   </v-layout>
 </template>
 
@@ -17,9 +25,11 @@ import { Row, CellState } from '../../models/reversi';
 export default class VRow extends Vue {
 
   @Prop({ required: true })
-  public row?: number;
+  public row?: Row;
   @Prop({ required: true })
-  public state?: CellState;
+  public y?: number;
+  @Prop({ required: true })
+  public turn?: CellState;
 
   @Emit()
   public put(i: number, j: number) {
