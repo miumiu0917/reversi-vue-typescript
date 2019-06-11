@@ -13,10 +13,10 @@ export class Board {
   }
 
   public put(p: Point) {
-    this.put_inner(p, this.turn);
+    this.putInner(p, this.turn);
     const reversed = this.search(p, this.turn);
     reversed.forEach((p0: Point) => {
-      this.put_inner(p0, this.turn);
+      this.putInner(p0, this.turn);
     });
     if (this.turn === CellState.Black) {
       this.turn = CellState.White;
@@ -25,7 +25,7 @@ export class Board {
     }
   }
 
-  private put_inner(p: Point, state: CellState) {
+  private putInner(p: Point, state: CellState) {
     const i = p.y;
     const j = p.x;
     this.rows[i].cells[j].state = state;
