@@ -6,7 +6,6 @@
       :x="i"
       :y="y"
       :state="row.cells[i].state"
-      :turn="turn"
       @put="onPutEvent"
     />
   </v-layout>
@@ -15,7 +14,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import VCell from '@/components/reversi/VCell.vue';
-import { Row, CellState } from '../../models/reversi';
+import { Row, CellState, Point } from '../../models/reversi';
 
 @Component({
   components: {
@@ -30,12 +29,12 @@ export default class VRow extends Vue {
   public y?: number;
 
   @Emit()
-  public put(i: number, j: number) {
-    console.debug([i, j]);
+  public put(p: Point) {
+    console.debug(p);
   }
 
-  public onPutEvent(i: number, j: number) {
-    this.put(i, j);
+  public onPutEvent(p: Point) {
+    this.put(p);
   }
 }
 </script>

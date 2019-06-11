@@ -12,13 +12,55 @@ export class Board {
     this.rows[4].cells[3].state = CellState.White;
   }
 
-  public put(i: number, j: number) {
-    this.rows[i].cells[j].state = this.turn;
+  public put(p: Point) {
+    this.put_inner(p, this.turn);
+    const reversed = this.search(p, this.turn);
+    reversed.forEach((p0: Point) => {
+      this.put_inner(p0, this.turn);
+    });
     if (this.turn === CellState.Black) {
       this.turn = CellState.White;
     } else {
       this.turn = CellState.Black;
     }
+  }
+
+  private put_inner(p: Point, state: CellState) {
+    const i = p.y;
+    const j = p.x;
+    this.rows[i].cells[j].state = state;
+  }
+
+  private ref(p: Point): CellState {
+    const i = p.y;
+    const j = p.x;
+    return this.rows[i].cells[j].state;
+  }
+
+  private search(p: Point, self: CellState): Point[] {
+    const _search = (current: Point, nxt: (p0: Point) => (Point), result: Point[]): Point[] => {
+      current = nxt(current);
+      if (this.ref(current) === CellState.None) {
+        return [];
+      }
+      if (this.ref(current) === self) {
+        return result;
+      } else {
+        result.push(current);
+        return _search(current, nxt, result);
+      }
+    };
+    let stones: Point[] = [];
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x, p0.y + 1), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x, p0.y - 1), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y + 1), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y - 1), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y + 1), []));
+    stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y - 1), []));
+    console.log(stones);
+    return stones;
   }
 }
 
@@ -49,6 +91,17 @@ export class Cell {
 
   public describe(): CellState {
     return this.state;
+  }
+}
+
+export class Point {
+
+  public x: number;
+  public y: number;
+
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 }
 

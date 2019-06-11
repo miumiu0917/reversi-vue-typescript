@@ -14,7 +14,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import VRow from '@/components/reversi/VRow.vue';
-import { Board, CellState } from '../../models/reversi';
+import { Board, CellState, Point } from '../../models/reversi';
 
 @Component({
   components: {
@@ -26,8 +26,8 @@ export default class VBoard extends Vue {
   public board: Board = new Board();
   private state: CellState = CellState.Black;
 
-  public onPutEvent(i: number, j: number) {
-    this.board.put(i, j);
+  public onPutEvent(p: Point) {
+    this.board.put(p);
   }
 }
 </script>

@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
-import { CellState } from '../../models/reversi';
+import { CellState, Point } from '../../models/reversi';
 
 @Component
 export default class VCell extends Vue {
@@ -20,8 +20,8 @@ export default class VCell extends Vue {
   public state?: CellState;
 
   @Emit()
-  public put(i: number, j: number) {
-    console.log([i, j]);
+  public put(p: Point) {
+    console.log(p);
   }
 
   public get isWhite(): boolean {
@@ -33,7 +33,7 @@ export default class VCell extends Vue {
   }
 
   public onClick() {
-    this.put(this.y!, this.x!);
+    this.put(new Point(this.x!, this.y!));
   }
 }
 </script>
