@@ -59,7 +59,6 @@ export class Board {
     stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y - 1), []));
     stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y + 1), []));
     stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y - 1), []));
-    console.log(stones);
     return stones;
   }
 }
