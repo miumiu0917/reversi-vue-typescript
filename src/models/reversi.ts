@@ -40,7 +40,7 @@ export class Board {
   private search(p: Point, self: CellState): Point[] {
     const _search = (current: Point, nxt: (p0: Point) => (Point), result: Point[]): Point[] => {
       current = nxt(current);
-      if (this.ref(current) === CellState.None) {
+      if (!current.isInBoard() || this.ref(current) === CellState.None) {
         return [];
       }
       if (this.ref(current) === self) {
@@ -101,6 +101,16 @@ export class Point {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
+  }
+
+  public isInBoard(): boolean {
+    if (this.x <= -1 || this.x >= 8) {
+      return false;
+    }
+    if (this.y <= -1 || this.y >= 8) {
+      return false;
+    }
+    return true;
   }
 }
 
