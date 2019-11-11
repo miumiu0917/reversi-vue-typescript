@@ -30,7 +30,7 @@ export default class VRow extends Vue {
 
   @Emit()
   public put(p: Point) {
-    console.debug(p);
+    /* tslint:disable:no-empty */
   }
 
   public onPutEvent(p: Point) {

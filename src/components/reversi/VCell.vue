@@ -21,7 +21,7 @@ export default class VCell extends Vue {
 
   @Emit()
   public put(p: Point) {
-    console.log(p);
+    /* tslint:disable:no-empty */
   }
 
   public get isWhite(): boolean {
