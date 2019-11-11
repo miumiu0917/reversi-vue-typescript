@@ -87,11 +87,11 @@ export class Row {
   }
 
   public get blacks(): number {
-    return this.cells.map((cell): number => cell.state === CellState.Black ? 1 : 0).reduce((a, b) => a + b);
+    return this.cells.map((cell): number => cell.isBlack ? 1 : 0).reduce((a, b) => a + b);
   }
 
   public get whites(): number {
-    return this.cells.map((cell): number => cell.state === CellState.White ? 1 : 0).reduce((a, b) => a + b);
+    return this.cells.map((cell): number => cell.isWhite ? 1 : 0).reduce((a, b) => a + b);
   }
 }
 
@@ -107,6 +107,14 @@ export class Cell {
 
   public describe(): CellState {
     return this.state;
+  }
+
+  public isBlack(): boolean {
+    return this.state === CellState.Black;
+  }
+
+  public isWhite(): boolean {
+    return this.state === CellState.White;
   }
 }
 
