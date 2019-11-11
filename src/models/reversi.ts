@@ -41,7 +41,7 @@ export class Board {
     return this.rows.map((r) => r.__repr__()).join('\n');
   }
 
-  private shouldPass(s: CellState) {
+  private shouldPass(s: CellState): boolean {
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         if (this.search(new Point(i, j), s).length > 0) {
