@@ -27,15 +27,29 @@ export class Board {
     this.whites = this.rows.map((r): number => r.whites).reduce((a, b) => a + b);
     this.blacks = this.rows.map((r): number => r.blacks).reduce((a, b) => a + b);
 
-    if (this.turn === CellState.Black) {
-      this.turn = CellState.White;
-    } else {
-      this.turn = CellState.Black;
-    }
+    const next = this.turn === CellState.White ? CellState.Black : CellState.White;
+    if (this.shouldPass(next)) { return; }
+
+    this.turn = next;
+  }
+
+  public isOver(): boolean {
+    return this.shouldPass(CellState.Black) && this.shouldPass(CellState.White);
   }
 
   public __repr__(): string {
     return this.rows.map((r) => r.__repr__()).join('\n');
+  }
+
+  private shouldPass(s: CellState) {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (this.search(new Point(i, j), s).length > 0) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   private putInner(p: Point, state: CellState) {
@@ -51,6 +65,9 @@ export class Board {
   }
 
   private search(p: Point, self: CellState): Point[] {
+    if (this.ref(p) !== CellState.None) {
+      return [];
+    }
     const f = (current: Point, nxt: (p0: Point) => (Point), result: Point[]): Point[] => {
       current = nxt(current);
       if (!current.isInBoard() || this.ref(current) === CellState.None) {

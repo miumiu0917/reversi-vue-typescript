@@ -26,9 +26,7 @@ export default class VBoard extends Vue {
   public board!: Board;
 
   public onPutEvent(p: Point) {
-    console.log(this.board.__repr__());
     this.board.put(p);
-    console.log(this.board.__repr__());
   }
 }
 </script>
