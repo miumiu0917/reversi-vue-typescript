@@ -1,6 +1,12 @@
 <template>
   <v-container>
-    <VBoard />
+    <v-layout
+      justify-center
+    >
+      <v-flex>
+        <VBoard />
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

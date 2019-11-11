@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="board">
     <VRow
       v-for="(row, i) in board.rows"
       :key="i"
@@ -31,3 +31,10 @@ export default class VBoard extends Vue {
   }
 }
 </script>
+
+<style scoped>
+#board {
+  margin: 0 auto;
+  width: 512px;
+}
+</style>

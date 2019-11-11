@@ -13,8 +13,11 @@ export class Board {
   }
 
   public put(p: Point) {
-    this.putInner(p, this.turn);
     const reversed = this.search(p, this.turn);
+    if (reversed.length === 0) {
+      return;
+    }
+    this.putInner(p, this.turn);
     reversed.forEach((p0: Point) => {
       this.putInner(p0, this.turn);
     });
@@ -38,7 +41,7 @@ export class Board {
   }
 
   private search(p: Point, self: CellState): Point[] {
-    const _search = (current: Point, nxt: (p0: Point) => (Point), result: Point[]): Point[] => {
+    const f = (current: Point, nxt: (p0: Point) => (Point), result: Point[]): Point[] => {
       current = nxt(current);
       if (!current.isInBoard() || this.ref(current) === CellState.None) {
         return [];
@@ -47,18 +50,18 @@ export class Board {
         return result;
       } else {
         result.push(current);
-        return _search(current, nxt, result);
+        return f(current, nxt, result);
       }
     };
     let stones: Point[] = [];
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x, p0.y + 1), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x, p0.y - 1), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y + 1), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y - 1), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x - 1, p0.y + 1), []));
-    stones = stones.concat(_search(p, (p0) => new Point(p0.x + 1, p0.y - 1), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x + 1, p0.y), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x - 1, p0.y), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x, p0.y + 1), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x, p0.y - 1), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x + 1, p0.y + 1), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x - 1, p0.y - 1), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x - 1, p0.y + 1), []));
+    stones = stones.concat(f(p, (p0) => new Point(p0.x + 1, p0.y - 1), []));
     return stones;
   }
 }

@@ -8,7 +8,9 @@
       >
         <v-btn
           block
-          dark
+          outline
+          flat
+          color="primary"
           @click="$router.push('/game')"
         >
           Start
