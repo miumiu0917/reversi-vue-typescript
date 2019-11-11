@@ -2,6 +2,8 @@ export class Board {
 
   public rows: Row[];
   public turn: CellState;
+  public whites: number = 2;
+  public blacks: number = 2;
 
   constructor() {
     this.rows = [...Array(8).keys()].map((i) => new Row(i));
@@ -21,6 +23,10 @@ export class Board {
     reversed.forEach((p0: Point) => {
       this.putInner(p0, this.turn);
     });
+
+    this.whites = this.rows.map((r): number => r.whites).reduce((a, b) => a + b);
+    this.blacks = this.rows.map((r): number => r.blacks).reduce((a, b) => a + b);
+
     if (this.turn === CellState.Black) {
       this.turn = CellState.White;
     } else {
@@ -78,6 +84,14 @@ export class Row {
 
   public state(j: number): CellState {
     return this.cells[j].describe();
+  }
+
+  public get blacks(): number {
+    return this.cells.map((cell): number => cell.state === CellState.Black ? 1 : 0).reduce((a, b) => a + b);
+  }
+
+  public get whites(): number {
+    return this.cells.map((cell): number => cell.state === CellState.White ? 1 : 0).reduce((a, b) => a + b);
   }
 }
 

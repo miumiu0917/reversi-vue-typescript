@@ -23,7 +23,8 @@ import { Board, CellState, Point } from '../../models/reversi';
 })
 export default class VBoard extends Vue {
 
-  public board: Board = new Board();
+  @Prop({required: true})
+  public board!: Board;
   private state: CellState = CellState.Black;
 
   public onPutEvent(p: Point) {
