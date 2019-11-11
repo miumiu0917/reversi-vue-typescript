@@ -5,7 +5,6 @@
       :key="i"
       :y="i"
       :row="row"
-      :state="state"
       @put="onPutEvent"
     />
   </div>
@@ -25,10 +24,11 @@ export default class VBoard extends Vue {
 
   @Prop({required: true})
   public board!: Board;
-  private state: CellState = CellState.Black;
 
   public onPutEvent(p: Point) {
+    console.log(this.board.__repr__());
     this.board.put(p);
+    console.log(this.board.__repr__());
   }
 }
 </script>

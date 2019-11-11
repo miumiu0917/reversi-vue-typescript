@@ -33,7 +33,7 @@ export default class VGame extends Vue {
     if (this.board.turn === CellState.Black) {
       return '黒の番です';
     } else if (this.board.turn === CellState.White) {
-      return '白の版です'
+      return '白の番です';
     } else {
       return '終了';
     }

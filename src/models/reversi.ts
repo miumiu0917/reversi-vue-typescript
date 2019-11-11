@@ -34,6 +34,10 @@ export class Board {
     }
   }
 
+  public __repr__(): string {
+    return this.rows.map((r) => r.__repr__()).join('\n');
+  }
+
   private putInner(p: Point, state: CellState) {
     const i = p.y;
     const j = p.x;
@@ -87,11 +91,19 @@ export class Row {
   }
 
   public get blacks(): number {
-    return this.cells.map((cell): number => cell.isBlack ? 1 : 0).reduce((a, b) => a + b);
+    return this.cells.map((cell): number => cell.isBlack() ? 1 : 0).reduce((a, b) => a + b);
   }
 
   public get whites(): number {
-    return this.cells.map((cell): number => cell.isWhite ? 1 : 0).reduce((a, b) => a + b);
+    return this.cells.map((cell): number => cell.isWhite() ? 1 : 0).reduce((a, b) => a + b);
+  }
+
+  public __repr__(): string {
+    return this.cells.map((c): string => {
+      if (c.isBlack()) { return '●'; }
+      if (c.isWhite()) { return '◯'; }
+      return '-';
+    }).reduce((a, b) => a + b);
   }
 }
 

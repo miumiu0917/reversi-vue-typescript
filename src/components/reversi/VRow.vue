@@ -5,7 +5,7 @@
       :key="i"
       :x="i"
       :y="y"
-      :state="row.cells[i].state"
+      :cell="row.cells[i]"
       @put="onPutEvent"
     />
   </v-layout>
