@@ -24,9 +24,9 @@ import { Row, CellState, Point } from '../../models/reversi';
 export default class VRow extends Vue {
 
   @Prop({ required: true })
-  public row?: Row;
+  public row!: Row;
   @Prop({ required: true })
-  public y?: number;
+  public y!: number;
 
   @Emit()
   public put(p: Point) {
